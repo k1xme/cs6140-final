@@ -9,8 +9,8 @@ def main():
     with open('./yelp_academic_dataset_business.json', 'r') as data_file:
         for i, line in enumerate(data_file):
             business = json.loads(line)
-            #  if business['city'] not in ('Pittsburgh', 'Charlotte', 'Phoenix', 'Las Vegas', 'Madison'):
-                #  continue
+            if business['city'] not in ('Pittsburgh', 'Charlotte', 'Phoenix', 'Las Vegas', 'Madison'):
+                continue
 
             for attribute, value in business['attributes'].iteritems():
                 if not isinstance(value, dict):
@@ -44,6 +44,7 @@ def main():
 
     """
 
+    All data points:
     (57507, u'Accepts Credit Cards')
     (54303, u'Price Range')
     (26246, u'Good for Kids')
@@ -55,6 +56,22 @@ def main():
     (22694, u'Wheelchair Accessible')
     (22679, u'Noise Level')
     (21919, u'Parking lot')
+    ...
+    ..
+    .
+
+    In 5 cities only:
+    (31428, u'Accepts Credit Cards')
+    (26668, u'Price Range')
+    (12650, u'Good for Kids')
+    (12647, u'Take-out')
+    (12507, u'Alcohol')
+    (12075, u'Wheelchair Accessible')
+    (11995, u'Attire')
+    (11955, u'Good For Groups')
+    (11689, u'Parking lot')
+    (11558, u'Wi-Fi')
+    (11162, u'Noise Level')
     ...
     ..
     .
