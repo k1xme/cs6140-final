@@ -6,7 +6,7 @@ def main():
     db = client.yelp_data
     biz = db.businesses
     cities = ['Pittsburgh', 'Charlotte', 'Phoenix', 'Las Vegas', 'Madison']
-    with open('/home/kexi/yelp_data/yelp_academic_dataset_business.json') as f:
+    with open('./yelp_academic_dataset_business.json') as f:
         for line in f:
             b = json.loads(line)
             if b['city'] in cities:
