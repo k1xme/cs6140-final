@@ -1,9 +1,10 @@
 import random
+import pymongo
+import numpy as np
+#  import matplotlib.pyplot as plt
+#  from matplotlib.colors import ListedColormap
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.metrics import accuracy_score
-import numpy as np
-import pymongo
-
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.datasets import make_moons, make_circles, make_classification
@@ -50,19 +51,24 @@ def main():
     test_X = StandardScaler().fit_transform(test_X)
     test_y = np.array(test_label)
 
+    names = ["Nearest Neighbors", "Linear SVM", "RBF SVM",
+         "Decision Tree", "Random Forest", "Neural Net",
+         "AdaBoost", "Naive Bayes"]
+
     classifiers = [
-        #  KNeighborsClassifier(3),
-        #  SVC(kernel="linear", C=0.025),
-        #  SVC(gamma=2, C=1),
+        KNeighborsClassifier(3),
+        SVC(kernel="linear", C=0.025),
+        SVC(gamma=2, C=1),
         DecisionTreeClassifier(max_depth=5),
         RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
         MLPClassifier(alpha=1),
         AdaBoostClassifier(),
         GaussianNB()]
-    for clf in classifiers:
+
+    for name, clf in zip(names, classifiers):
         clf.fit(X, y)
-        predict_y = clf.predict(test_X)
-        print accuracy_score(test_y, predict_y)
+        print 'classifier: {} \ttraining error:{}\ttest error: {}'.format(
+                name, 1 - accuracy_score(y, clf.predict(X)), 1 - accuracy_score(test_y, clf.predict(test_X)))
 
 
 if __name__ == '__main__':

@@ -38,6 +38,7 @@ def main():
                 "num_high_rating_biz": count_high_rating_biz(nearby_biz)}
         geo_feat_docs.append(feat_doc)
         count += 1
+        print count
     geo_feats.insert_many(geo_feat_docs)
 
 main()
