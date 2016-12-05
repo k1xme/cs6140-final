@@ -1,6 +1,7 @@
 import collections
 import json
 import pymongo
+import csv
 
 
 def main():
@@ -13,7 +14,16 @@ def main():
 
     cursor = original_data.find({})
     formatted_docs = [convert(document, parent_categories) for document in cursor]
-    formatted_data.insert_many(formatted_docs)
+    #  formatted_data.insert_many(formatted_docs)
+
+    out_file = open('training_data.csv', 'wb')
+    fieldnames = sorted(list(set(k for d in formatted_docs for k in d)))
+    writer = csv.DictWriter(out_file, fieldnames=fieldnames, dialect='excel')
+
+    writer.writeheader() # Assumes Python >= 2.7
+    for row in formatted_docs:
+        writer.writerow(row)
+    out_file.close()
 
 def read_parent_category():
     parent_categories = collections.defaultdict(set)
@@ -34,7 +44,6 @@ def read_parent_category():
 
 def convert(doc, parent_categories):
     new_doc = {
-            'business_id': doc['business_id'],
             'restaurants': False,
             'shopping': False,
             'food': False,
@@ -73,6 +82,7 @@ def convert(doc, parent_categories):
         if attribute in new_doc:
             new_doc[attribute] = value
 
+    new_doc.pop('_id')
     new_doc['Success'] = (doc['review_count'] >= 40 and doc['stars'] >= 4)
     return new_doc
 
