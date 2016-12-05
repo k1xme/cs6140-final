@@ -90,6 +90,7 @@ def main():
     rec4 = ax.bar(x_pos+0.3, recall, width=0.2, align='center', color='black')
     ax.legend((rec1[0], rec2[0], rec3[0], rec4[0]),
                ('Training Error', 'Test Error', 'Precision', 'Recall'))
+    plt.xticks(x_pos, names)
     plt.show()
 
 if __name__ == '__main__':
