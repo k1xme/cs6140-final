@@ -77,8 +77,8 @@ def main():
     .
 
     """
-    #  for k, v in attribute_values.iteritems():
-        #  print k, v
+    for k, v in attribute_values.iteritems():
+        print k, v
 
 if __name__ == '__main__':
     main()
