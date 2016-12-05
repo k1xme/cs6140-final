@@ -64,8 +64,9 @@ def convert(doc, parent_categories):
     for category in doc['categories']:
         if category in parent_categories:
             for parent_category in parent_categories[category]:
-                new_doc[parent_category] = True
-                other_category = False
+                if parent_category in new_doc:
+                    new_doc[parent_category] = True
+                    other_category = False
     new_doc['other'] = other_category
 
     for attribute, value in doc['attributes'].iteritems():
