@@ -31,10 +31,11 @@ def main():
     test_label = []
 
     for document in cursor:
-        document.pop("_id")
-        document.pop("business_id")
+        #document.pop("_id")
+        #document.pop("business_id")
         label = document.pop("Success")
-
+        for key in document.keys():
+            if key not in ['num_restaurants', 'num_food', 'num_shopping', 'num_nearby_biz', 'num_nightlife', 'num_high_rating_biz']: document.pop(key)
         if random.random() < 0.8:
             training_data.append(document)
             training_label.append(label)
